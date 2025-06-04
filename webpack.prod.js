@@ -1,21 +1,25 @@
 // webpack.prod.js
-const { merge } = require("webpack-merge");
-const common = require("./webpack.common.js");
-const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+import { merge } from 'webpack-merge';
+import common from './webpack.common.js';
+import path from 'path';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-module.exports = merge(common, {
-  mode: "production",
+export default merge(common, {
+  mode: 'production',
 
   // external source‑map (optional) or disable
-  devtool: "source-map",
+  devtool: 'source-map',
 
   output: {
     // contenthash for long‑term caching
     publicPath: './',
     path: path.resolve(__dirname, 'dist'),
-    filename: "[name].[contenthash].js",
+    filename: '[name].[contenthash].js',
   },
 
   module: {
@@ -23,7 +27,7 @@ module.exports = merge(common, {
       {
         test: /\.css$/i,
         // extract CSS to files in prod
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
@@ -31,13 +35,13 @@ module.exports = merge(common, {
   plugins: [
     // emit .css files
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css",
+      filename: '[name].[contenthash].css',
     }),
   ],
 
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
-    splitChunks: { chunks: "all" },
+    splitChunks: { chunks: 'all' },
   },
 });

@@ -1,8 +1,13 @@
 // webpack.common.js
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-module.exports = {
+
+export default {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
